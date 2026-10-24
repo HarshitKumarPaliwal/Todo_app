@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Style/Addtask.css";
+import "../Style/addtask.css";
 export default function Addtask() {
   const [taskdata, settaskdata] = useState({});
   const navigate = useNavigate();
