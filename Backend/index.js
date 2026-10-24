@@ -19,26 +19,72 @@ app.use(
 app.use(cookieParser());
 
 
-app.post("/signup", async (req, res) => {
-  const useData = req.body;
-  if (useData.email && useData.password) {
-    const db = await connection();
-    const collection = await db.collection("user");
+// app.post("/signup", async (req, res) => {
+//   const useData = req.body;
+//   if (useData.email && useData.password) {
+//     const db = await connection();
+//     const collection = await db.collection("user");
 
-    const result = await collection.insertOne(useData);
-    if (result) {
-      jwt.sign(useData, "Google", { expiresIn: "115d" }, (error, token) => {
-        res.send({
-          success: true,
-          msg: "Signup done",
-          token,
-        });
+//     const result = await collection.insertOne(useData);
+//     if (result) {
+//       jwt.sign(useData, "Google", { expiresIn: "115d" }, (error, token) => {
+//         res.send({
+//           success: true,
+//           msg: "Signup done",
+//           token,
+//         });
+//       });
+//     }
+//   } else {
+//     res.send({
+//       success: false,
+//       msg: "sign not done",
+//     });
+//   }
+// });
+app.post("/signup", async (req, res) => {
+  try {
+    const useData = req.body;
+
+    if (!useData.email || !useData.password) {
+      return res.status(400).send({
+        success: false,
+        msg: "Email and password are required",
       });
     }
-  } else {
-    res.send({
+
+    const db = await connection();
+    const collection = db.collection("user");
+
+    const result = await collection.insertOne(useData);
+
+    if (result.acknowledged) {
+      jwt.sign(
+        { email: useData.email },
+        "Google",
+        { expiresIn: "115d" },
+        (error, token) => {
+          if (error) {
+            return res.status(500).send({
+              success: false,
+              msg: "Token generation failed",
+            });
+          }
+
+          return res.send({
+            success: true,
+            msg: "Signup done",
+            token,
+          });
+        }
+      );
+    }
+  } catch (error) {
+    console.error("Signup Error:", error);
+
+    return res.status(500).send({
       success: false,
-      msg: "sign not done",
+      msg: error.message,
     });
   }
 });

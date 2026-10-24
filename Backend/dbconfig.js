@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-const url="mongodb+srv://harshitkumarpaliwal08_db_user:GoogleTest@cluster0.xxxxx.mongodb.net/?appName=Cluster0";
+const url="mongodb+srv://harshitkumarpaliwal08_db_user:GoogleTest@cluster0.fqnvukt.mongodb.net/"
 //const url = "mongodb://127.0.0.1:27017/";
 
 
