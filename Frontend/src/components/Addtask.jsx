@@ -8,7 +8,7 @@ export default function Addtask() {
   const handleAddTask = async () => {
     console.log(taskdata);
 
-    let result = await fetch("http://localhost:3200/add-task", {
+    let result = await fetch("https://todo-app-x7iw.onrender.com/add-task", {
       method: "POST",
       body: JSON.stringify(taskdata),
       credentials: "include",

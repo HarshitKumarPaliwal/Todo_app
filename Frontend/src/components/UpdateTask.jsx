@@ -12,7 +12,7 @@ export default function UpdateTask(){
 getTask(id)
     },[])
     const getTask=async(id)=>{
-        let task=await fetch(`http://localhost:3200/tasks/` +id,{
+        let task=await fetch(`https://todo-app-x7iw.onrender.com/tasks/` +id,{
          credentials:"include"     
         })
         task=await task.json()
@@ -22,7 +22,7 @@ getTask(id)
     }
 const UpdateTask=async()=>{
     console.log(taskdata);
-let task=await fetch("http://localhost:3200/update-task",{
+let task=await fetch("https://todo-app-x7iw.onrender.com/update-task",{
    method:'put',
        credentials:"include",
    body:JSON.stringify(taskdata),

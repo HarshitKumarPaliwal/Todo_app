@@ -2,6 +2,7 @@
 import { Fragment, useEffect, useState } from "react";
 import "../Style/List.css";
 import{Link} from 'react-router-dom'
+//const API_URL = "https://todo-app-x7iw.onrender.com";
 
 export default function List() {
   const [taskData, setTaskData] = useState([]);
@@ -11,7 +12,7 @@ export default function List() {
   }, []);
 
   const getListData = async () => {
-    let list = await fetch("http://localhost:3200/tasks",{
+    let list = await fetch("https://todo-app-x7iw.onrender.com/tasks",{
       credentials:'include'
     });
     list = await list.json();
@@ -23,7 +24,7 @@ export default function List() {
     }
   };
 const deleteTask=async(id)=>{
-  let item = await fetch(`http://localhost:3200/delete/${id}`, {
+  let item = await fetch(`https://todo-app-x7iw.onrender.com/delete/${id}`, {
   method: "DELETE",
         credentials:'include',
 });  
